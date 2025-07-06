@@ -6,7 +6,8 @@ class UploadScreen extends StatefulWidget {
   final Map<String, dynamic>? editData;
   final String? docId;
 
-  const UploadScreen({super.key, required this.type, this.editData, this.docId});
+  const UploadScreen(
+      {super.key, required this.type, this.editData, this.docId});
 
   @override
   State<UploadScreen> createState() => _UploadScreenState();
@@ -44,13 +45,17 @@ class _UploadScreenState extends State<UploadScreen> {
         "description": description.text,
         "included": included.text,
         "itinerary": itinerary.text,
-        "rating": widget.editData != null ? widget.editData!["rating"] ?? [] : [],
+        "rating":
+            widget.editData != null ? widget.editData!["rating"] ?? [] : [],
       };
 
       if (widget.editData == null) {
         await FirebaseFirestore.instance.collection(widget.type).add(doc);
       } else {
-        await FirebaseFirestore.instance.collection(widget.type).doc(widget.docId).update(doc);
+        await FirebaseFirestore.instance
+            .collection(widget.type)
+            .doc(widget.docId)
+            .update(doc);
       }
 
       if (mounted) {
@@ -77,7 +82,9 @@ class _UploadScreenState extends State<UploadScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          widget.editData != null ? "Edit ${widget.type}" : "Upload ${widget.type}",
+          widget.editData != null
+              ? "Edit ${widget.type}"
+              : "Upload ${widget.type}",
           style: const TextStyle(
             color: Colors.black87,
             fontWeight: FontWeight.bold,
@@ -96,25 +103,43 @@ class _UploadScreenState extends State<UploadScreen> {
             children: [
               TextFormField(
                 controller: imageUrl,
-                decoration: _inputDecoration("Image URL"),
+                decoration: _inputDecoration(
+                  "Image URL",
+                ),
+                style: TextStyle(
+                  color: Colors.black, // 👈 Change this to any color you want
+                  fontSize: 16, // Optional: change font size
+                ),
                 validator: (v) => v!.isEmpty ? "Required" : null,
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: title,
                 decoration: _inputDecoration("Title"),
+                style: TextStyle(
+                  color: Colors.black, // 👈 Change this to any color you want
+                  fontSize: 16, // Optional: change font size
+                ),
                 validator: (v) => v!.isEmpty ? "Required" : null,
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: price,
                 decoration: _inputDecoration("Price"),
+                style: TextStyle(
+                  color: Colors.black, // 👈 Change this to any color you want
+                  fontSize: 16, // Optional: change font size
+                ),
                 validator: (v) => v!.isEmpty ? "Required" : null,
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: description,
                 decoration: _inputDecoration("Description"),
+                style: TextStyle(
+                  color: Colors.black, // 👈 Change this to any color you want
+                  fontSize: 16, // Optional: change font size
+                ),
                 validator: (v) => v!.isEmpty ? "Required" : null,
                 maxLines: 3,
               ),
@@ -122,6 +147,10 @@ class _UploadScreenState extends State<UploadScreen> {
               TextFormField(
                 controller: included,
                 decoration: _inputDecoration("Included"),
+                style: TextStyle(
+                  color: Colors.black, // 👈 Change this to any color you want
+                  fontSize: 16, // Optional: change font size
+                ),
                 validator: (v) => v!.isEmpty ? "Required" : null,
                 maxLines: 2,
               ),
@@ -129,6 +158,10 @@ class _UploadScreenState extends State<UploadScreen> {
               TextFormField(
                 controller: itinerary,
                 decoration: _inputDecoration("Itinerary"),
+                style: TextStyle(
+                  color: Colors.black, // 👈 Change this to any color you want
+                  fontSize: 16, // Optional: change font size
+                ),
                 validator: (v) => v!.isEmpty ? "Required" : null,
                 maxLines: 3,
               ),
@@ -144,7 +177,8 @@ class _UploadScreenState extends State<UploadScreen> {
                 onPressed: uploadData,
                 child: Text(
                   widget.editData != null ? "Update" : "Upload",
-                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.w500),
                 ),
               ),
             ],
